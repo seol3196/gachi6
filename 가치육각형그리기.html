@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나의 6가지 핵심 가치</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #f5f0e8;
+  --bg2:       #ede8df;
+  --surface:   #faf7f2;
+  --surface2:  #f0ebe1;
+  --border:    #e2d9cc;
+  --border2:   #d4c9b8;
+  --text:      #1a1612;
+  --text2:     #5c5248;
+  --text3:     #9c8e80;
+  --accent:    #c8570a;
+  --accent2:   #e8793a;
+  --accent3:   #f5a35c;
+  --amber:     #d4860f;
+  --coral:     #d45a2a;
+  --shadow:    rgba(60,40,20,0.08);
+  --shadow2:   rgba(60,40,20,0.14);
+  --radius:    16px;
+  --radius-sm: 10px;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 10% 10%, rgba(200,87,10,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 85%, rgba(212,134,15,0.07) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--text);
+  padding: 32px 16px 56px;
+}
+
+/* ── Header ── */
+header {
+  max-width: 860px;
+  margin: 0 auto 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.logo-mark {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent3));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(200,87,10,0.3);
+  flex-shrink: 0;
+}
+
+.logo-mark svg { width: 20px; height: 20px; fill: white; }
+
+.header-title-group { flex: 1; }
+
+.header-title-group h1 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  outline: none;
+  cursor: text;
+  display: inline;
+  border-bottom: 1.5px dashed var(--border2);
+  padding-bottom: 1px;
+}
+.header-title-group h1:focus { border-bottom-color: var(--accent); }
+
+.header-subtitle {
+  font-size: 13px;
+  color: var(--text3);
+  margin-top: 3px;
+  font-weight: 400;
+}
+
+
+
+/* ── Layout ── */
+.layout {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+/* ── Card base ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px var(--shadow), 0 4px 16px var(--shadow);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+
+/* ── Left panel ── */
+.left-panel {
+  flex: 1 1 320px;
+  max-width: 400px;
+}
+
+.values-list {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.value-row {
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+
+.value-row:hover {
+  border-color: var(--border2);
+  box-shadow: 0 1px 6px var(--shadow);
+}
+
+.value-row.selected {
+  background: #fdf6ee;
+  border-color: var(--accent3);
+  box-shadow: 0 1px 6px rgba(200,87,10,0.1);
+}
+
+.value-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.value-name {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.value-emoji {
+  width: 26px; height: 26px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.value-score-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2px 9px;
+  transition: all 0.25s;
+  min-width: 36px;
+  text-align: center;
+}
+
+.value-score-badge.active {
+  color: var(--accent);
+  background: #fdf0e6;
+  border-color: var(--accent3);
+}
+
+/* Score buttons */
+.btn-group {
+  display: flex;
+  gap: 4px;
+}
+
+.score-btn {
+  flex: 1;
+  height: 30px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text3);
+  font-weight: 600;
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  position: relative;
+}
+
+.score-btn:hover {
+  border-color: var(--accent3);
+  color: var(--accent);
+  background: #fef3e8;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(200,87,10,0.15);
+}
+
+.score-btn.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 2px 8px rgba(200,87,10,0.35);
+  transform: translateY(-1px);
+}
+
+.score-btn.prev-filled {
+  background: #fdf0e6;
+  border-color: var(--accent3);
+  color: var(--accent2);
+}
+
+
+
+/* ── Right panel ── */
+.right-panel {
+  flex: 1 1 320px;
+  max-width: 440px;
+}
+
+.chart-wrap {
+  padding: 8px 16px 4px;
+  display: flex;
+  justify-content: center;
+}
+
+canvas#radar {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+}
+
+/* Message */
+.message-area {
+  margin: 0 16px 14px;
+  padding: 11px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  transition: all 0.35s ease;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.message-area.complete {
+  background: #fdf3e7;
+  border-color: var(--accent3);
+}
+
+.message-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--border2);
+  flex-shrink: 0;
+  transition: background 0.35s;
+}
+
+.message-area.complete .message-dot {
+  background: var(--accent);
+}
+
+.message-text {
+  font-size: 13px;
+  color: var(--text3);
+  font-weight: 500;
+  transition: color 0.35s;
+  line-height: 1.4;
+}
+
+.message-area.complete .message-text {
+  color: var(--accent);
+}
+
+/* Action buttons */
+.action-row {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px;
+  margin-bottom: 14px;
+}
+
+.btn-reset {
+  flex: 1;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text2);
+  font-weight: 500;
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.btn-reset:hover {
+  background: var(--bg2);
+  border-color: var(--border2);
+  color: var(--text);
+}
+
+.btn-save {
+  flex: 2;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text3);
+  font-weight: 600;
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: not-allowed;
+  opacity: 0.55;
+  transition: all 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.btn-save.ready {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-color: transparent;
+  color: white;
+  cursor: pointer;
+  opacity: 1;
+  box-shadow: 0 2px 10px rgba(200,87,10,0.3);
+}
+
+.btn-save.ready:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(200,87,10,0.4);
+}
+
+/* Progress */
+.progress-section {
+  padding: 0 16px 16px;
+}
+
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.progress-label { font-size: 11px; color: var(--text3); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+.progress-count { font-size: 11px; color: var(--accent); font-weight: 600; }
+
+.progress-track {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent3));
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .layout { flex-direction: column; }
+  .left-panel, .right-panel { max-width: 100%; flex-basis: auto; }
+  header { flex-wrap: wrap; }
+  .header-badge { display: none; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.left-panel  { animation: fadeIn 0.5s ease 0.05s both; }
+.right-panel { animation: fadeIn 0.5s ease 0.15s both; }
+header       { animation: fadeIn 0.4s ease both; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+  </div>
+  <div class="header-title-group">
+    <h1 contenteditable="true" spellcheck="false">나의 6가지 핵심 가치</h1>
+    <p class="header-subtitle">각 가치를 1–5점으로 평가하고 나만의 레이더 차트를 완성하세요</p>
+  </div>
+
+</header>
+
+<div class="layout">
+
+  <!-- Left -->
+  <div class="card left-panel">
+    <div class="card-header">
+      <span class="card-title">가치 평가</span>
+      <span style="font-size:11px;color:var(--text3);">6개 항목</span>
+    </div>
+    <div class="values-list" id="valuesList"></div>
+
+  </div>
+
+  <!-- Right -->
+  <div class="card right-panel">
+    <div class="card-header">
+      <span class="card-title">레이더 차트</span>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="radar" width="440" height="440"></canvas>
+    </div>
+    <div class="message-area" id="msgArea">
+      <span class="message-dot"></span>
+      <span class="message-text" id="msgText">모든 가치를 선택해주세요</span>
+    </div>
+    <div class="action-row">
+      <button class="btn-reset" onclick="resetAll()">↺ 초기화</button>
+      <button class="btn-save" id="btnSave" onclick="savePNG()">↓ PNG 저장</button>
+    </div>
+    <div class="progress-section">
+      <div class="progress-meta">
+        <span class="progress-label">진행도</span>
+        <span class="progress-count" id="progressCount">0 / 6</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const VALUES = [
+  { key:'courage',        label:'용기', emoji:'🦁', color:'#c8570a', light:'#fdf0e6' },
+  { key:'autonomy',       label:'자율', emoji:'🦋', color:'#b06a15', light:'#fdf4e7' },
+  { key:'responsibility', label:'책임', emoji:'⚖️', color:'#9e7c1e', light:'#fdf8ea' },
+  { key:'challenge',      label:'도전', emoji:'🚀', color:'#7a8a20', light:'#f6f9e6' },
+  { key:'persistence',    label:'끈기', emoji:'🌊', color:'#2a8a70', light:'#e8f8f3' },
+  { key:'hope',           label:'희망', emoji:'✨', color:'#3a78c0', light:'#eaf2fd' },
+];
+
+const scores = {};
+let animFrom = {}, animTarget = {}, animProg = 1, raf = null;
+
+// Build UI
+function buildUI() {
+  const list = document.getElementById('valuesList');
+  VALUES.forEach(v => {
+    const row = document.createElement('div');
+    row.className = 'value-row';
+    row.id = `row-${v.key}`;
+
+    row.innerHTML = `
+      <div class="value-meta">
+        <div class="value-name">
+          <span class="value-emoji">${v.emoji}</span>
+          ${v.label}
+        </div>
+        <span class="value-score-badge" id="badge-${v.key}">—</span>
+      </div>
+      <div class="btn-group" id="grp-${v.key}"></div>
+    `;
+
+    const grp = row.querySelector(`#grp-${v.key}`);
+    [1,2,3,4,5].forEach(n => {
+      const btn = document.createElement('button');
+      btn.className = 'score-btn';
+      btn.textContent = n;
+      btn.id = `btn-${v.key}-${n}`;
+      btn.onclick = () => setScore(v.key, n);
+      grp.appendChild(btn);
+    });
+
+    list.appendChild(row);
+  });
+}
+
+function setScore(key, val) {
+  scores[key] = val;
+  refreshRow(key);
+  updateUI();
+  animateTo(scores);
+}
+
+function refreshRow(key) {
+  const v = VALUES.find(x => x.key === key);
+  const s = scores[key] || 0;
+
+  const badge = document.getElementById(`badge-${key}`);
+  badge.textContent = s ? `${s}점` : '—';
+  badge.className = 'value-score-badge' + (s ? ' active' : '');
+  if (s) badge.style.color = v.color;
+  else badge.style.color = '';
+
+  const row = document.getElementById(`row-${key}`);
+  row.className = 'value-row' + (s ? ' selected' : '');
+  if (s) row.style.borderColor = v.color + '55';
+  else row.style.borderColor = '';
+
+  for (let n = 1; n <= 5; n++) {
+    const btn = document.getElementById(`btn-${key}-${n}`);
+    btn.className = 'score-btn';
+    btn.style.cssText = '';
+    if (n === s) {
+      btn.classList.add('active');
+      btn.style.background = `linear-gradient(135deg, ${v.color}, ${v.color}cc)`;
+    } else if (n < s) {
+      btn.classList.add('prev-filled');
+      btn.style.borderColor = v.color + '66';
+      btn.style.color = v.color;
+      btn.style.background = v.light;
+    }
+  }
+}
+
+function updateUI() {
+  const filled = VALUES.filter(v => scores[v.key]).length;
+
+  document.getElementById('progressCount').textContent = `${filled} / 6`;
+  document.getElementById('progressFill').style.width = `${(filled/6)*100}%`;
+
+  const msgArea = document.getElementById('msgArea');
+  const msgText = document.getElementById('msgText');
+  let msg = '';
+
+  if (filled === 0) {
+    msg = '모든 가치를 선택해주세요';
+    msgArea.className = 'message-area';
+  } else if (filled < 6) {
+    msg = `${6 - filled}개 항목이 남았습니다`;
+    msgArea.className = 'message-area';
+  } else {
+    msg = '차트가 완성되었습니다';
+    msgArea.className = 'message-area complete';
+  }
+  msgText.textContent = msg;
+
+  const btnSave = document.getElementById('btnSave');
+  btnSave.className = 'btn-save' + (filled === 6 ? ' ready' : '');
+}
+
+// Radar
+const canvas = document.getElementById('radar');
+const ctx    = canvas.getContext('2d');
+const N = VALUES.length;
+const CX = canvas.width / 2, CY = canvas.height / 2;
+const MAX_R = canvas.width * 0.30;
+
+function pt(i, val) {
+  const a = (Math.PI * 2 * i) / N - Math.PI / 2;
+  return [CX + MAX_R * (val/5) * Math.cos(a), CY + MAX_R * (val/5) * Math.sin(a)];
+}
+
+function hexPt(i, r) {
+  const a = (Math.PI * 2 * i) / N - Math.PI / 2;
+  return [CX + r * Math.cos(a), CY + r * Math.sin(a)];
+}
+
+function drawRadar(disp) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // ── Grid rings ──
+  for (let ring = 1; ring <= 5; ring++) {
+    ctx.beginPath();
+    for (let i = 0; i < N; i++) {
+      const [x,y] = hexPt(i, MAX_R * ring / 5);
+      i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = ring === 5 ? 'rgba(100,80,60,0.18)' : 'rgba(100,80,60,0.1)';
+    ctx.lineWidth = ring === 5 ? 1.5 : 1;
+    ctx.stroke();
+    if (ring % 2 === 0) {
+      ctx.fillStyle = 'rgba(100,80,60,0.025)';
+      ctx.fill();
+    }
+  }
+
+  // ── Spokes ──
+  for (let i = 0; i < N; i++) {
+    const [x,y] = hexPt(i, MAX_R);
+    ctx.beginPath();
+    ctx.moveTo(CX, CY);
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = 'rgba(100,80,60,0.12)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // ── Score polygon ──
+  const pts = VALUES.map((v,i) => pt(i, disp[v.key] || 0));
+  const anyScore = VALUES.some(v => (disp[v.key] || 0) > 0);
+
+  if (anyScore) {
+    // Fill with warm gradient
+    const grad = ctx.createLinearGradient(CX-MAX_R, CY-MAX_R, CX+MAX_R, CY+MAX_R);
+    grad.addColorStop(0,   'rgba(200,87,10,0.18)');
+    grad.addColorStop(0.4, 'rgba(212,134,15,0.18)');
+    grad.addColorStop(0.8, 'rgba(58,120,192,0.14)');
+    grad.addColorStop(1,   'rgba(42,138,112,0.14)');
+
+    ctx.beginPath();
+    pts.forEach(([x,y],i) => i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y));
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Stroke
+    const strokeGrad = ctx.createLinearGradient(CX-MAX_R, CY-MAX_R, CX+MAX_R, CY+MAX_R);
+    strokeGrad.addColorStop(0,   '#c8570a');
+    strokeGrad.addColorStop(0.4, '#d4860f');
+    strokeGrad.addColorStop(0.8, '#3a78c0');
+    strokeGrad.addColorStop(1,   '#2a8a70');
+    ctx.strokeStyle = strokeGrad;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Dots
+    pts.forEach(([x,y],i) => {
+      const s = disp[VALUES[i].key] || 0;
+      if (s < 0.1) return;
+      ctx.beginPath();
+      ctx.arc(x, y, 4.5, 0, Math.PI*2);
+      ctx.fillStyle = VALUES[i].color;
+      ctx.fill();
+      ctx.strokeStyle = '#faf7f2';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    });
+  }
+
+  // ── Labels ──
+  VALUES.forEach((v,i) => {
+    const a = (Math.PI*2*i)/N - Math.PI/2;
+    const lr = MAX_R + 48;
+    const lx = CX + lr * Math.cos(a);
+    const ly = CY + lr * Math.sin(a);
+
+    ctx.font = '700 15px "Noto Sans KR",sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = v.color;
+    ctx.fillText(`${v.emoji} ${v.label}`, lx, ly - 8);
+
+    const s = scores[v.key] || 0;
+    ctx.font = '600 13px "Noto Sans KR",sans-serif';
+    ctx.fillStyle = s ? '#5c5248' : '#b0a090';
+    ctx.fillText(s ? `${s}점` : '—', lx, ly + 10);
+  });
+}
+
+function animateTo(target) {
+  animFrom   = {};
+  animTarget = {};
+  VALUES.forEach(v => {
+    animFrom[v.key]   = animProg < 1 ? lerp(animFrom[v.key]||0, animTarget[v.key]||0, animProg) : (target[v.key]||0);
+    animTarget[v.key] = target[v.key] || 0;
+  });
+  animProg = 0;
+  if (raf) cancelAnimationFrame(raf);
+  step();
+}
+
+function lerp(a,b,t){ return a + (b-a)*t; }
+function ease(t){ return 1-Math.pow(1-t,3); }
+
+function step() {
+  animProg = Math.min(1, animProg + 0.055);
+  const e = ease(animProg);
+  const d = {};
+  VALUES.forEach(v => { d[v.key] = lerp(animFrom[v.key]||0, animTarget[v.key]||0, e); });
+  drawRadar(d);
+  if (animProg < 1) raf = requestAnimationFrame(step);
+}
+
+function resetAll() {
+  VALUES.forEach(v => {
+    delete scores[v.key];
+    refreshRow(v.key);
+  });
+  updateUI();
+  animateTo({});
+}
+
+function savePNG() {
+  const filled = VALUES.filter(v => scores[v.key]).length;
+  if (filled < 6) return;
+
+  const exp = document.createElement('canvas');
+  exp.width = 480; exp.height = 500;
+  const ec = exp.getContext('2d');
+
+  // Warm bg
+  const bg = ec.createLinearGradient(0,0,480,500);
+  bg.addColorStop(0,'#fdf7ef');
+  bg.addColorStop(1,'#f5ede0');
+  ec.fillStyle = bg;
+  ec.fillRect(0,0,480,500);
+
+  // Subtle glow
+  const g1 = ec.createRadialGradient(60,60,0,60,60,180);
+  g1.addColorStop(0,'rgba(200,87,10,0.07)');
+  g1.addColorStop(1,'transparent');
+  ec.fillStyle=g1; ec.fillRect(0,0,480,500);
+
+  // Top accent bar
+  const bar = ec.createLinearGradient(0,0,480,0);
+  bar.addColorStop(0,'#c8570a');
+  bar.addColorStop(0.4,'#d4860f');
+  bar.addColorStop(0.7,'#3a78c0');
+  bar.addColorStop(1,'#2a8a70');
+  ec.fillStyle=bar;
+  ec.fillRect(0,0,480,4);
+
+  // Title
+  ec.font = '600 22px "Noto Sans KR",serif';
+  ec.textAlign = 'center';
+  ec.fillStyle = '#1a1612';
+  ec.fillText('나의 6가지 핵심 가치', 240, 44);
+
+  // Chart
+  ec.drawImage(canvas, 40, 62, 400, 400);
+
+  const a = document.createElement('a');
+  a.download = 'my_core_values.png';
+  a.href = exp.toDataURL('image/png');
+  a.click();
+}
+
+function roundRect(c, x, y, w, h, r) {
+  c.beginPath();
+  c.moveTo(x+r,y);
+  c.lineTo(x+w-r,y);
+  c.quadraticCurveTo(x+w,y,x+w,y+r);
+  c.lineTo(x+w,y+h-r);
+  c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  c.lineTo(x+r,y+h);
+  c.quadraticCurveTo(x,y+h,x,y+h-r);
+  c.lineTo(x,y+r);
+  c.quadraticCurveTo(x,y,x+r,y);
+  c.closePath();
+}
+
+buildUI();
+drawRadar({});
+</script>
+</body>
+</html>
